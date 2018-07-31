@@ -1,0 +1,20 @@
+{
+  "manifest_version": "1",
+  "api_version": "1",
+  "name": "GNOME Control Center",
+  "description": "Quick access to GNOME Control Center panels",
+  "developer_name": "noam09",
+  "icon": "images/icon.svg",
+  "options": {
+    "query_debounce": 0.1
+  },
+  "preferences": [
+    {
+      "id": "gcon",
+      "type": "keyword",
+      "name": "GNOME Control Center",
+      "description": "Quick access to standard GNOME settings",
+      "default_value": "s"
+    }
+  ]
+}
