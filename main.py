@@ -78,7 +78,7 @@ class KeywordQueryEventListener(EventListener):
         term = (event.get_argument() or '').lower()
         # Display all items when query empty
         if term == "":
-            items = [i for name, i in items_cache]
+            items = [i for name, i in items_cache[:5]] #Just show 5 items
         # Only display items containing query substring
         else:
             items = [i for name, i in items_cache if term in name]
