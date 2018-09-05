@@ -1,6 +1,6 @@
 # ulauncher-gnome-control-center
 
-Ulauncher extension for accessing GNOME Control Center settings panels.
+[Ulauncher](https://ulauncher.io) extension for accessing GNOME Control Center settings panels.
 
 Icons from the [Numix project](https://github.com/numixproject).
 
