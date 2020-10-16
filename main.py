@@ -12,6 +12,7 @@ from ulauncher.api.shared.action.RenderResultListAction import RenderResultListA
 from ulauncher.api.shared.action.RunScriptAction import RunScriptAction
 from ulauncher.api.shared.action.ExtensionCustomAction import ExtensionCustomAction
 from i18n import __
+from icontheme import get_icon
 
 
 logging.basicConfig()
@@ -50,7 +51,8 @@ class GnomeControlExtension(Extension):
             'keyboard': 'Keyboard Shortcuts',
             'lock': 'Lock screen',
             'user-accounts': 'Users',
-            'datetime': 'Date & Time'
+            'datetime': 'Date & Time',
+            'ubuntu': 'Appearance'
         }
         panels = []
         try:
@@ -151,7 +153,7 @@ class ItemEnterEventListener(EventListener):
 def create_item(name, icon, keyword, description, on_enter):
     return ExtensionResultItem(
             name=name,
-            icon='images/{}.svg'.format(icon),
+            icon=get_icon(icon),
             on_enter=ExtensionCustomAction(
                  {'id': on_enter})
             )
