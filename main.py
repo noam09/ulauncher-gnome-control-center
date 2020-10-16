@@ -11,6 +11,7 @@ from ulauncher.api.shared.item.SmallResultItem import SmallResultItem
 from ulauncher.api.shared.action.RenderResultListAction import RenderResultListAction
 from ulauncher.api.shared.action.RunScriptAction import RunScriptAction
 from ulauncher.api.shared.action.ExtensionCustomAction import ExtensionCustomAction
+from i18n import __
 
 
 logging.basicConfig()
@@ -42,46 +43,66 @@ if gcpath is None or gcpath == '':
 
 class GnomeControlExtension(Extension):
     def __init__(self):
+        dictPanels = { # init with correct translatable strings
+            'default-apps': 'Default Applications',
+            'display': 'Display Configuration',
+            'info-overview': 'About',
+            'keyboard': 'Keyboard Shortcuts',
+            'lock': 'Lock screen',
+            'user-accounts': 'Users',
+            'datetime': 'Date & Time'
+        }
         panels = []
         try:
             # Get list of panel names from gnome-control-center
             panel_list = subprocess.check_output([gcpath, "--list"])
             # Get sorted list of panels without empty items and without
             # irrelevant help text
-            panels = sorted([i.strip() for i in panel_list.split('\n')
-                             if not i.startswith("Available") and len(i) < 1])
+            panels = sorted([i.strip() for i in panel_list.decode().split(os.linesep)
+                            if (':' not in i and len(i))])
         except Exception as e:
             print('Failed getting panel names, fallback to standard names')
         # Load default panels if they could not be retrieved
         if len(panels) < 2:
-            panels = ['background',
-                      'bluetooth',
-                      'color',
-                      'datetime',
-                      'display',
-                      'info-overview',
-                      'default-apps',
-                      'removable-media',
-                      'keyboard',
-                      'mouse',
-                      'network',
-                      'wifi',
-                      'notifications',
-                      'online-accounts',
-                      'power',
-                      'printers',
-                      'privacy',
-                      'region',
-                      'search',
-                      'sharing',
-                      'sound',
-                      'universal-access',
-                      'user-accounts',
-                      'wacom']
+            panels = [
+                'applications',
+                'background',
+                'bluetooth',
+                'color',
+                'connectivity',
+                'datetime',
+                'default-apps',
+                'diagnostics',
+                'display',
+                'info-overview',
+                'keyboard',
+                'location',
+                'lock',
+                'mouse',
+                'network',
+                'notifications',
+                'online-accounts',
+                'power',
+                'printers',
+                'region',
+                'removable-media',
+                'search',
+                'sharing',
+                'sound',
+                'thunderbolt',
+                'ubuntu',
+                'universal-access',
+                'usage',
+                'user-accounts',
+                'wacom',
+                'wifi']
 
         for p in panels:
             # Capitalize words to form item title
             title = " ".join(w.capitalize() for w in p.split('-'))
+            if(p in dictPanels):
+                title = dictPanels.get(p)
+            title = __(title)
             items_cache.append(create_item(title, p, p, title, p))
 
         super(GnomeControlExtension, self).__init__()
