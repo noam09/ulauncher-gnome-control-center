@@ -15,7 +15,7 @@ glob = {
 
 altName = {
   'universal-access': 'accessibility',
-  'datetime': 'preferences-system-time',
+  'datetime': 'time',
   'connectivity': 'globe',
   'background': 'wallpaper',
   'applications': 'apps',
@@ -36,21 +36,13 @@ altName = {
 }
 
 def get_icon(icon):
-  return  IconTheme.getIconPath("preferences-desktop-%s-symbolic" % icon, theme=get_selected_theme()) or\
-          IconTheme.getIconPath("preferences-system-%s-symbolic" % icon, theme=get_selected_theme()) or\
-          IconTheme.getIconPath("preferences-%s-symbolic" % icon, theme=get_selected_theme()) or\
-          IconTheme.getIconPath("%s-symbolic" % icon, theme=get_selected_theme()) or\
-          IconTheme.getIconPath("preferences-desktop-%s-symbolic" % (altName.get(icon) or ''), theme=get_selected_theme()) or\
-          IconTheme.getIconPath("preferences-system-%s-symbolic" % (altName.get(icon) or ''), theme=get_selected_theme()) or\
-          IconTheme.getIconPath("preferences-%s-symbolic" % (altName.get(icon) or ''), theme=get_selected_theme()) or\
-          IconTheme.getIconPath("system-%s-symbolic" % (altName.get(icon) or ''), theme=get_selected_theme()) or\
-          IconTheme.getIconPath("system-%s-symbolic" % icon, theme=get_selected_theme()) or\
-          IconTheme.getIconPath("%s-symbolic" % (altName.get(icon) or ''), theme=get_selected_theme()) or\
-          IconTheme.getIconPath("%s-symbolic" % icon, theme=get_selected_theme()) or\
-          IconTheme.getIconPath("gnome-%s-symbolic" % (altName.get(icon) or ''), theme=get_selected_theme()) or\
-          IconTheme.getIconPath("gnome-%s-symbolic" % icon, theme=get_selected_theme()) or\
-          IconTheme.getIconPath(altName.get(icon) or '', theme=get_selected_theme()) or\
-          IconTheme.getIconPath(icon, theme=get_selected_theme()) or\
+  return  IconTheme.getIconPath("preferences-desktop-%s-symbolic" % (altName.get(icon) or icon), theme=get_selected_theme()) or\
+          IconTheme.getIconPath("preferences-system-%s-symbolic" % (altName.get(icon) or icon), theme=get_selected_theme()) or\
+          IconTheme.getIconPath("preferences-%s-symbolic" % (altName.get(icon) or icon), theme=get_selected_theme()) or\
+          IconTheme.getIconPath("system-%s-symbolic" % (altName.get(icon) or icon), theme=get_selected_theme()) or\
+          IconTheme.getIconPath("gnome-%s-symbolic" % (altName.get(icon) or icon), theme=get_selected_theme()) or\
+          IconTheme.getIconPath("%s-symbolic" % (altName.get(icon) or icon), theme=get_selected_theme()) or\
+          IconTheme.getIconPath(altName.get(icon) or icon, theme=get_selected_theme()) or\
           'images/{}.svg'.format(icon)
 
 def get_selected_theme():
