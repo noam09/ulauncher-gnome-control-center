@@ -9,9 +9,6 @@ import subprocess
 import distutils.spawn
 from xdg import IconTheme
 
-logging.basicConfig()
-logger = logging.getLogger(__name__)
-
 glob = {
   'theme': 1
 }
@@ -34,6 +31,7 @@ altName = {
   'lock': 'lock-screen',
   'wifi': 'network-wireless',
   'wacom': 'input-tablet',
+  'region': 'locale',
   'removable-media': 'media-removable'
 }
 
@@ -52,7 +50,7 @@ def get_icon(icon):
           IconTheme.getIconPath("gnome-%s-symbolic" % (altName.get(icon) or ''), theme=get_selected_theme()) or\
           IconTheme.getIconPath("gnome-%s-symbolic" % icon, theme=get_selected_theme()) or\
           IconTheme.getIconPath(altName.get(icon) or '', theme=get_selected_theme()) or\
-          IconTheme.getIconPath(icon, theme='Yaru') or\
+          IconTheme.getIconPath(icon, theme=get_selected_theme()) or\
           'images/{}.svg'.format(icon)
 
 def get_selected_theme():
@@ -83,7 +81,7 @@ def try_get_gsetting_default_theme(type):
     gspath = distutils.spawn.find_executable('gsettings')
     if gspath is None or gspath == '':
       return None
-    theme = subprocess.check_output([gspath, "get", "org.%s.desktop.interface" % type, "icon-theme"]).decode()
+    theme = subprocess.check_output([gspath, "get", "org.%s.desktop.interface" % type, "icon-theme"]).decode().strip().strip("'").strip()
     if(theme == ""):
       return None
     return theme.strip()

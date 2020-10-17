@@ -52,7 +52,8 @@ class GnomeControlExtension(Extension):
             'lock': 'Lock screen',
             'user-accounts': 'Users',
             'datetime': 'Date & Time',
-            'ubuntu': 'Appearance'
+            'ubuntu': 'Appearance',
+            'region': 'Region & Language'
         }
         panels = []
         try:
